@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../static/css/reset.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/sub.css" type="text/css" />
+  <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon" />
+  <script type="text/javascript" src="../static/js/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="../static/js/common.js"></script>
+</head>
+<script>
+  function openVoucherModal(cnt, price) {
+    $('.modal_bg, .modal').fadeIn();
+    $('.modal')
+      .find('.voucher_cnt')
+      .attr('value', cnt);
+    $('.modal')
+      .find('.voucher_price')
+      .attr('value', '₩ ' + price);
+    $('.footer').fadeOut();
+  }
+</script>
+
+<body>
+  <div id="wrap">
+    <!--S header -->
+    <header class="header">
+      <button class="btn_back">뒤로가기</button>
+      <h2>이용권</h2>
+    </header>
+    <!--E header -->
+    <!-- S sub_container -->
+    <div class="sub_container footer_layout">
+      <div class="voucher_guide layout">
+        <div class="my_info">
+          <div class="top clearfix">
+            <span class="name"><strong>{{username}}</strong>님</span>
+            <a href="/purchase_list">구매내역</a>
+          </div>
+          <div class="bottom clearfix">
+            <div class="box clearfix">
+              <span class="txt">잔여 이용권</span>
+              <span class="num">{{user_point_voucher['user_voucher']}}</span>
+            </div>
+            <div class="box clearfix">
+              <span class="txt">잔여 포인트</span>
+              <span class="num">{{user_point_voucher['remain_point']}}</span>
+            </div>
+            {% if res == 'error'%}
+            <p style="color: red; margin-top: 10px">{{errMsg}}</p>
+            {% endif %}
+          </div>
+        </div>
+        <ul class="voucher_list clearfix">
+          <li onClick="openVoucherModal(10000,'10,000')">
+            <p class="voucher_chk">
+              <input type="radio" name="voucher" id="voucher1" />
+              <label for="voucher1">
+                <span class="title">이용권</span>
+                <strong class="num">10,000</strong>
+                <span class="price">₩ 10,000</span>
+                <span class="info">수수료 : 0.15%<br />사용기간 : 180일</span>
+              </label>
+            </p>
+          </li>
+          <li onClick="openVoucherModal(30000,'30,000')">
+            <p class="voucher_chk">
+              <input type="radio" name="voucher" id="voucher2" />
+              <label for="voucher2">
+                <span class="title">이용권</span>
+                <strong class="num">30,000</strong>
+                <span class="price">₩ 30,000</span>
+                <span class="info">수수료 : 0.15%<br />사용기간 : 180일</span>
+              </label>
+            </p>
+          </li>
+          <li onClick="openVoucherModal(50000,'50,000')">
+            <p class="voucher_chk">
+              <input type="radio" name="voucher" id="voucher3" />
+              <label for="voucher3">
+                <span class="title">이용권</span>
+                <strong class="num">50,000</strong>
+                <span class="price">₩ 50,000</span>
+                <span class="info">수수료 : 0.15%<br />사용기간 : 180일</span>
+              </label>
+            </p>
+          </li>
+          <li onClick="openVoucherModal(100000,'100,000')">
+            <p class="voucher_chk">
+              <input type="radio" name="voucher" id="voucher4" />
+              <label for="voucher4">
+                <span class="title">이용권</span>
+                <strong class="num">100,000</strong>
+                <span class="price">₩ 100,000</span>
+                <span class="info">수수료 : 0.15%<br />사용기간 : 180일</span>
+              </label>
+            </p>
+          </li>
+        </ul>
+        <form action="/purchase_voucher" enctype="application/x-www-form-urlencoded" method="POST"
+          class="modal voucher">
+          <button type="button" class="btn_close">닫기</button>
+          <div class="title_box">
+            <span>이용권</span>
+            <input type="text" value="" readonly id="used_p" name="used_p" class="voucher_cnt" />
+          </div>
+          <div class="info">
+            <ul class="clearfix">
+              <li>
+                <span>수수료:</span>
+                <span>0.15%</span>
+              </li>
+              <li>
+                <span>사용기간:</span>
+                <span>180일</span>
+              </li>
+            </ul>
+            <div class="price clearfix">
+              <span>결제금액</span>
+              <input type="text" value="" readonly id="currency" name="currency" class="voucher_price" />
+            </div>
+          </div>
+          <ul class="txt">
+            <li>모든 이용권은 부가가치세(10%)가 포함되어 있습니다.</li>
+            <li>
+              와이비봇 이용권은 선불결제 상품이기에 구매 및 사용하신 이용권에
+              대해서는 환불되지 않습니다.
+            </li>
+          </ul>
+          <button type="submit" class="btn1 arrow">결제하기</button>
+        </form>
+        <div class="modal_bg"></div>
+      </div>
+    </div>
+    <!-- E sub_container -->
+    {% include 'active_start.html' %}
+  </div>
+</body>
+
+</html>

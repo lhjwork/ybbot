@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="../static/css/common.css" type="text/css" />
+    <link rel="stylesheet" href="../static/css/sub.css" type="text/css" />
+    <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="../static/js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="../static/js/common.js"></script>
+</head>
+<script>
+    $(document).ready(function () { });
+</script>
+
+<body>
+    <div id="wrap">
+        <!--S header -->
+        <header class="header">
+            <button class="btn_back">뒤로가기</button>
+            <h2>주문내역</h2>
+            <a href="/main" class="btn_home"><img src="../static/img/common/btn_home2.jpg" alt="홈" /></a>
+        </header>
+        <!--E header -->
+        <!-- S sub_container -->
+        <div class="sub_container">
+            <div class="transaction_complete layout">
+                <img src="../static/img/sub/order_list_bg.jpg" class="bg" style="width: 80px;" />
+                <strong>XRP</strong>
+                <div class="date">
+                    <span>22.00.00</span>
+                    <span class="time">00:00:00</span>
+                    <span>-</span>
+                    <span>00.00.00</span>
+                    <span class="time">00:00:00</span>
+                </div>
+                <div class="info1">
+                    <img src="../static/img/sub/type3.jpg" />
+                    <span class="border">Attack-Ⅰ</span>
+                    <span>공격형</span>
+                </div>
+                <div class="info2 clearfix">
+                    <span>주문번호</span>
+                    <span>00000</span>
+                    <span>주문금액</span>
+                    <span>000,000</span>
+                </div>
+                <div class="profit_box">
+                    <span class="title">수익률</span>
+                    <span class="time">00:00:00 기준</span>
+                    <button class="btn_refresh">새로고침</button>
+                    <div class="clearfix" style="margin-top: 30px;">
+                        <div class="box">
+                            <span>현재 수익금<em>(₩)</em></span>
+                            <span class="red">+ 00,000</span>
+                        </div>
+                        <div class="box">
+                            <span>현재 수익률<em>(%)</em></span>
+                            <span class="red">+ 1.8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- E sub_container -->
+    </div>
+</body>
+
+</html>

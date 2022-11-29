@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no" />
+  <link rel="stylesheet" href="../static/css/reset.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/main.css" type="text/css" />
+  <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="../static/js/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="../static/js/common.js"></script>
+</head>
+<!-- {% block scripts %}
+<script type="text/javascript">
+  window.ReactNativeWebView = {
+    window.ReactNativeWebView.postMessage(
+          JSON.stringify( {data:"hello"} )
+        );
+  }else{
+    window.ReactNativeWebView.postMessage(
+          JSON.stringify( {data:"hello"} )
+        );
+  }
+</script>
+{% endblock %} -->
+<script>
+  $(document).ready(function () { });
+</script>
+<!-- test -->
+
+<body>
+  <div id="wrap">
+    <!--S header -->
+    <header class="header">
+      <button class="btn_menu">
+        <img src="../static/img/common/menu_ic.jpg" alt="메뉴" />
+      </button>
+      <h1 class="logo">
+        <img src="../static/img/common/logo.jpg" alt="YB BOT 로고" />
+      </h1>
+      <button class="btn_alarm" onClick="modal('alarm')">
+        <img src="../static/img/common/alarm_none.png" alt="알림" />
+      </button>
+    </header>
+    <!--E header -->
+    <!-- S main_container -->
+    <div class="main_container footer_layout">
+      <div class="top">
+        <div class="layout">
+          <div class="my_info">
+            <span><strong>{{username}}</strong>님</span>
+            <a href="/business_list">거래내역</a>
+            <p>와이비봇에 접속하신 것을 환영합니다.</p>
+          </div>
+          <div class="info clearfix">
+            <div class="left">
+              <span style="float: left;">잔여이용권</span>
+              <a href="/voucher">충전</a>
+              <span class="num">
+                {% if voucher_info['user_voucher'] == none %} 0 {% else %}
+                {{voucher_info['user_voucher']}} {% endif %}
+              </span>
+            </div>
+            <div class="right">
+              <span>누적수익률</span>
+              <a href="/mypage">누적수익률 바로가기</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notice">
+        <div class="layout">
+          <p>[{{notice_list['notice_type']+"] "+notice_list['title']}}</p>
+        </div>
+      </div>
+      <div class="bottom">
+        <ul class="layout clearfix">
+          <li><a href="/voucher">이용권</a></li>
+          <li><a href="/business_list">거래내역</a></li>
+          <li><a href="/manual">매뉴얼</a></li>
+          <li><a href="/notice_list">고객센터</a></li>
+        </ul>
+      </div>
+      <a href="#"
+        onclick="window.open('https://pf.kakao.com/_pBFxcb/chat?api_ver=1.1&kakao_agent=sdk%2F1.43.0%20os%2Fjavascript%20sdk_type%2Fjavascript%20lang%2Fko-KR%20device%2FMacIntel%20origin%2Fhttps%253A%252F%252Fybbot.co.kr&app_key=c891a1cd538d182c9ec61bcf006444ba&referer=https%3A%2F%2Fybbot.co.kr%2Fsupport%2Fcenter','window팝업','width=400, height=600, menubar=no, status=no, toolbar=no');"
+        class="btn_kakao"><img src="../static/img/common/kakao_ic.png" alt="카카오톡상담" /></a>
+      <!-- menu_wrap -->
+      <div class="menu_wrap">
+        <div class="top">
+          <!-- 로그아웃 상태 -->
+          <!-- <p class="txt1">지금은 <em>로그아웃</em> 상태입니다.</p>
+                    <p class="txt2">와이비봇의 놀라운 자동매매를 직접 경험해 보세요.</p>
+                    <a href="login.html" class="btn_login">로그인/회원가입하기</a>
+                    <button class="btn_close">닫기</button> -->
+          <!-- 로그아웃 상태 -->
+
+          <!-- 로그인 상태 -->
+          <span class="name"><strong>{{username}}</strong>님</span>
+          <a href="/logout"><button class="btn_logout">로그아웃</button></a>
+          <p class="txt2">와이비봇의 놀라운 자동매매를 직접 경험해 보세요.</p>
+          <a href="/transaction" class="btn_start">자동매매 START</a>
+          <button class="btn_close">닫기</button>
+          <!-- 로그인 상태 -->
+        </div>
+        <div class="menu">
+          <ul class="depth1">
+            <li class="on">
+              <a href="javascript:void(0)">마이페이지</a>
+              <ul class="depth2">
+                <li><a href="/mypage">사용자정보</a></li>
+                <li><a href="/mypage">API 등록</a></li>
+                <!-- <li><a href="/transaction">타입선택</a></li> -->
+              </ul>
+            </li>
+            <li>
+              <!-- <a href="javascript:void(0)">거래내역</a> -->
+              <a href="javascript:void(0)">거래내역</a>
+              <ul class="depth2">
+                <li><a href="/business_list">체결내역</a></li>
+                <li><a href="/mypage">누적수익률</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="javascript:void(0)">이용권</a>
+              <ul class="depth2">
+                <li><a href="/voucher">충전</a></li>
+                <li><a href="/purchase_list">구매내역</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="javascript:void(0)">고객센터</a>
+              <ul class="depth2">
+                <li><a href="/notice_list">공지사항</a></li>
+                <li><a href="/faq_list">자주묻는질문</a></li>
+                <li><a href="/manual">매뉴얼</a></li>
+                <!--<li><a href="#"
+                    onclick="window.open('https://pf.kakao.com/_pBFxcb/chat?api_ver=1.1&kakao_agent=sdk%2F1.43.0%20os%2Fjavascript%20sdk_type%2Fjavascript%20lang%2Fko-KR%20device%2FMacIntel%20origin%2Fhttps%253A%252F%252Fybbot.co.kr&app_key=c891a1cd538d182c9ec61bcf006444ba&referer=https%3A%2F%2Fybbot.co.kr%2Fsupport%2Fcenter','window팝업','width=400, height=600, menubar=no, status=no, toolbar=no');">카카오상담</a>
+                </li> -->
+                <li><a href="/contact_us">1:1 문의</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="menu_footer">
+          <ul class="clearfix">
+            <!-- <li><a href="/business_information">사업자정보</a></li> -->
+            <li><a href="/terms_use">이용약관</a></li>
+            <li>
+              <a href="/privacy_policy">개인정보취급방침</a>
+            </li>
+          </ul>
+          <div class="company_info">
+            <span>대표이사 : 조영권</span>
+            <span>주소 : 서울특별시 강남구 테헤란로 79길 25-1, 준빌딩 4층 (삼성동)</span>
+          </div>
+          <div class="company_info">
+            <span>사업자등록번호 : 354-88-02261</span>
+            <span>통신판매번호 : 2022-서울강남-02182</span>
+          </div>
+          <div class="company_info">
+            <span>대표번호 : 1800-8829</span>
+            <span>E-mail : help@ybbot.co.kr</span>
+          </div>
+          <div class="company_info">
+            <span>Copyright©와이비팩토리 All Rights Reserved.</span>
+          </div>
+        </div>
+        <!-- menu_wrap -->
+        <!-- E main_container -->
+      </div>
+      {% include 'active_start.html' %}
+      <div class="modal alarm"><button type="button" class="btn_close">닫기</button>
+        <strong class="title">알람</strong>
+        {% if alarm_info['active'] == false :%}
+        <p class="txt">자동매매를 시작하시려면 start를 해주세요.</p>
+        {% elif alarm_info['type'] == 'attack0':%}
+        <p class="txt">자동매매가 시작되었습니다.</p>
+        {% else: %}
+        <p class="txt">자동매매({{alarm_info['type']}})가 시작되었습니다.</p>
+        {% endif %}
+      </div>
+      <div class="modal_bg"></div>
+    </div>
+</body>
+
+</html>

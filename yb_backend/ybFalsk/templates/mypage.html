@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../static/css/reset.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/sub.css" type="text/css" />
+  <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon" />
+  <script type="text/javascript" src="../static/js/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="../static/js/common.js"></script>
+</head>
+<script>
+  let graph_data_reverse = {{ week_datas | safe }}
+  let graph_data = graph_data_reverse.reverse();
+
+  $(document).mouseup(function (e) {
+    var container = $('.graph_info');
+    if (container.has(e.target).length === 0) {
+      container.css('display', 'none');
+      $('.graph .bar').removeClass('gold')
+    }
+  });
+  $(document).ready(function () {
+    $('.graph .bar').on('click', function (e) {
+      var idx = $(this).index();
+      var date = $(Object.values(graph_data[idx]))[2];
+      var trade_count = $(Object.values(graph_data[idx]))[0];
+      var profit_rate = parseFloat($(Object.values(graph_data[idx]))[1]).toFixed(2);
+      var graph_width = $('.graph').innerWidth();
+      var graph_info_width = $('.graph_info').outerWidth();
+      var graph_info_height = $('.graph_info').outerHeight();
+      var bar_width = $('.bar').outerWidth();
+      var item_top = $('.item').offset().top;
+      var item_left = $('.item').offset().left;
+      var top = $(e.target).offset().top - item_top - graph_info_height - 20;
+      var left = $(e.target).offset().left - item_left - graph_info_width / 2 + bar_width / 2;
+
+      $('.graph_info').css("top", top)
+      if (left < 0) {
+        $('.graph_info').css("left", "10px")
+        $('.graph_info').css("right", "unset")
+      }
+      else if (left + graph_info_width > graph_width) {
+        $('.graph_info').css("right", "10px")
+        $('.graph_info').css("left", "unset")
+      }
+      else {
+        $('.graph_info').css("top", top)
+        $('.graph_info').css("left", left)
+        $('.graph_info').css("right", "unset")
+      }
+
+      $('.graph .bar').removeClass('gold')
+      $(this).addClass("gold")
+      $('.graph_info').fadeIn();
+      $('.graph_info').find('.date').text("Date : " + date);
+      $('.graph_info').find('.info li:first-child span:last-child').text(trade_count);
+      $('.graph_info').find('.info li:last-child span:last-child').text(profit_rate + "%");
+
+    })
+    const element = document.querySelector(".modal");
+    const modalDisplay = window.getComputedStyle(element).display;
+    if (modalDisplay == "block") {
+      $(".footer").css("display", "none");
+    }
+  });
+</script>
+
+<body>
+  <div id="wrap">
+    <!--S header -->
+    <header class="header">
+      <button class="btn_back">뒤로가기</button>
+      <h2>마이페이지</h2>
+      <button class="btn_alarm" onClick="modal('alarm')">
+        <img src="../static/img/common/alarm_none.png" alt="알림" />
+      </button>
+    </header>
+    <!--E header -->
+    <!-- S sub_container -->
+    <div class="sub_container footer_layout">
+      <div class="mypage layout">
+        <div class="my_info">
+          <span class="name"><strong>{{username}}</strong>님</span>
+          <div class="bottom clearfix">
+            <div class="box clearfix">
+              <span class="txt">잔여 이용권</span>
+              <a href="/voucher">이용권 충전</a>
+              <span class="num">{{user_point_voucher['user_voucher']}}</span>
+            </div>
+            <div class="box clearfix">
+              <span class="txt">잔여 포인트</span>
+              <span class="num">{{user_point_voucher['remain_point']}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="transaction_list clearfix">
+          <a href="/purchase_list">이용권 구매내역</a>
+          <a href=" /business_list">거래내역</a>
+        </div>
+        <!-- 비밀번호 변경 -->
+        <div class="section">
+          <strong>비밀번호 변경</strong>
+          <button class="btn1" onClick="modal('pwd_reset')">수정</button>
+          {% if res == 'success_ch_pass' %}
+          <p style="color: yellow; margin-top: 15px">
+            비밀번호를 변경하였습니다.
+          </p>
+          {% endif %}
+        </div>
+
+        <!-- 지갑주소 등록 수정 -->
+        <div class="section">
+          <strong>사용자 지갑 주소 등록</strong>
+          {% if wallets['walletAdd'] == None or wallets['walletAdd'] == none or wallets['walletAdd'] == Null or
+          wallets['walletAdd'] == null %}
+          <p class="txt txt2">지갑주소를 등록해주세요</p>
+          <button class="btn1" onClick="modal('wallet')">등록</button>
+          {% if error == 'addr_error'%}
+          <p style="color: red; margin-top: 15px">{{errMsg}}</p>
+          {% endif %}
+          {% else: %}
+          <p class="txt txt2">{{wallets['walletAdd']}}</p>
+          <button class="btn1" onClick="modal('wallet')">수정</button>
+          {% if error == 'addr_error'%}
+          <p style="color: red; margin-top: 15px">{{errMsg}}</p>
+          {% endif %}
+          {% endif %}
+          <p class="txt txt2" style="font-size: 14px;">지갑 등록 후에 관리자 지갑 주소로 token 전송바랍니다.</p>
+          <strong style="margin-top: 20px; display: block;">어드민 지갑주소</strong>
+          <p class="txt txt2">{{wallets['admin_wallet']}}</p>
+        </div>
+
+        <!-- apiKey 등록 수정 -->
+        <div class="section">
+          <strong>API Key</strong>
+          <p class="txt">
+            {% if accessKey['accessKey'] == None or accessKey['accessKey'] == none or accessKey['accessKey'] == Null or
+            accessKey['accessKey'] == null %}
+            API Key를 등록해주세요
+            <button class="btn1" onClick="modal('api')">등록</button>
+            {% if error == 'error'%}
+          <p style="color: red; margin-top: 15px">{{errMsg}}</p>
+          {% endif %}
+          {% else %}
+          {{accessKey['accessKey']}}
+          <button class="btn1" onClick="modal('api')">수정</button>
+          {% if error == 'error'%}
+          <p style="color: red; margin-top: 15px">{{errMsg}}</p>
+          {% endif %}
+          {% endif %}
+        </div>
+
+        <div class="section">
+          <strong>누적수익률</strong>
+          <p class="txt">
+            매매하신 비트코인의 전체 합산한 % 값을 확인할 수 있습니다.
+          </p>
+          <div class="option clearfix">
+            <!-- S tab_button -->
+            <div class="tab_button clearfix">
+              <button class="btn on">주간</button>
+            </div>
+          </div>
+          <!-- S tab_content -->
+          <div class="tab_content">
+            <!-- 주간 -->
+            <div class="item on">
+              <div class="graph_wrap">
+                <div class="graph">
+                  <div class="bar_wrap">
+                    {% for week_data in week_datas|reverse %} {% if
+                    week_data['profit_rate'] > 0: %} {% set graph_height =
+                    week_data['profit_rate']/max_profit_rate*100 %} {% else:
+                    %} {% set graph_height = 0 %} {% endif %} {% if
+                    week_data['profit_rate'] < 0: %} <p class="bar blue" style="height: {{graph_height*-1}}%">
+                      </p>
+                      {% else: %}
+                      <p class="bar red" style="height: {{graph_height}}%"></p>
+                      {% endif %} {% endfor %}
+                  </div>
+                  <div class="graph_info">
+                    <span class="date">Date:22/00/00</span>
+                    <ul class="info">
+                      <li class="clearfix">
+                        <span>주문횟수</span>
+                        <span>00</span>
+                      </li>
+                      <li class="clearfix">
+                        <span>수익률 합계</span>
+                        <span>-00%</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <ul class="date">
+                  {% for week_data in week_datas|reverse %}
+                  <li>{{(week_data['update_time'])[3:8]}}</li>
+                  {% endfor %}
+                </ul>
+                <ul class="num">
+                  <li>{{(max_profit_rate)|round(2)}}</li>
+                  <li>{{(max_profit_rate/5*4)|round(2)}}</li>
+                  <li>{{(max_profit_rate/5*3)|round(2)}}</li>
+                  <li>{{(max_profit_rate/5*2)|round(2)}}</li>
+                  <li>{{(max_profit_rate/5)|round(2)}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- E tab_content -->
+        </div>
+        <!-- 비밀번호 변경 -->
+        {% if error == 'ch_error' : %}
+        <div class="modal pwd_reset" style="display: block">
+          {% else %}
+          <div class="modal pwd_reset">
+            {% endif %}
+            <form action="/password_change" enctype="application/x-www-form-urlencoded" method="POST">
+              <fieldset>
+                <button type="button" class="btn_close">닫기</button>
+                <strong class="title">비밀번호 재설정</strong>
+                <input type="password" id="password" name="password" placeholder="비밀번호" class="ipt1" />
+                <input type="password" id="ch_password" name="ch_password" placeholder="비밀번호 확인" class="ipt1" />
+                <p class="txt">
+                  비밀번호는 8자리 이상이어야 하며 영문 소문자, 숫자,
+                  특수문자(!@$#*)를 포함해야 합니다.
+                </p>
+                {% if error == 'ch_error': %}
+                <p style="color: red; margin: 15px">{{errMsg}}</p>
+                {% endif %}
+                <button type="submit" class="btn1 arrow">확인</button>
+              </fieldset>
+            </form>
+          </div>
+          {% if error == 'ch_error' : %}
+          <div class="modal_bg" style="display: block"></div>
+          {% else %}
+          <div class="modal_bg"></div>
+          {% endif %}
+
+          <!-- 지갑주소 등록 수정 -->
+          <div class="modal wallet">
+            <form action="/wallet_update" enctype="application/x-www-form-urlencoded" method="POST">
+              <fieldset>
+                <button type="button" class="btn_close">닫기</button>
+                {% if wallets['walletAdd'] == None or wallets['walletAdd'] == none or wallets['walletAdd'] == Null or
+                wallets['walletAdd'] == null %}
+                <strong class="title">사용자 지갑 주소 등록</strong>
+                <input type="text" placeholder="" id="walletAdd" name="walletAdd" class="ipt1" />
+                <button type="submit" class="btn1 arrow">등록</button>
+                {% else: %}
+                <strong class="title">사용자 지갑 주소 수정</strong>
+                <input type="text" placeholder="" id="walletAdd" name="walletAdd" class="ipt1" />
+                <button type="submit" class="btn1 arrow">수정</button>
+                {% endif %}
+              </fieldset>
+            </form>
+          </div>
+          <div class="modal_bg"></div>
+
+          <!-- apiKey 등록 수정 -->
+          <div class="modal api">
+            <form action="/keysupdate" enctype="application/x-www-form-urlencoded" method="POST">
+              <button type="button" class="btn_close">닫기</button>
+              {% if accessKey['accessKey'] == None or accessKey['accessKey'] == none or accessKey['accessKey'] == Null
+              or
+              accessKey['accessKey'] == null %}
+              <strong class="title">API Key 등록</strong>
+              <input type="text" id="accesskey" name="accesskey" placeholder="Access Key" class="ipt1" />
+              <input type="text" id="secretkey" name="secretkey" placeholder="Secret Key" class="ipt2" />
+              <p class="txt">
+                *업비트 Key를 발급받으실 때 3개의 YBBot 고정 IP를 필수입력해야
+                정상적으로 사용가능합니다.
+              </p>
+              <button type="button" class="btn_copy" onClick="copyToClipboard()">
+                YBBot 고정 IP 복사하기
+              </button>
+              <button type="submit" class="btn1 arrow">등록</button>
+              {% else : %}
+              <strong class="title">API Key 수정</strong>
+              <input type="text" id="accesskey" name="accesskey" placeholder="Access Key" class="ipt1" />
+              <input type="text" id="secretkey" name="secretkey" placeholder="Secret Key" class="ipt2" />
+              <p class="txt">
+                *업비트 Key를 발급받으실 때 3개의 YBBot 고정 IP를 필수입력해야
+                정상적으로 사용가능합니다.
+              </p>
+              <button type="button" class="btn_copy" onClick="copyToClipboard()">
+                YBBot 고정 IP 복사하기
+              </button>
+              <button type="submit" class="btn1 arrow">수정</button>
+              {% endif %}
+            </form>
+          </div>
+          <div class="modal_bg"></div>
+
+          <!-- 알람 -->
+          <div class="modal alarm">
+            <button type="button" class="btn_close">닫기</button>
+            <strong class="title">알람</strong>
+            {% if alarm_info['active'] == false :%}
+            <p class="txt">자동매매를 시작하시려면 start를 해주세요.</p>
+            {% elif alarm_info['type'] == 'attack0':%}
+            <p class="txt">자동매매가 시작되었습니다.</p>
+            {% else: %}
+            <p class="txt">자동매매({{alarm_info['type']}})가 시작되었습니다.</p>
+            {% endif %}
+          </div>
+          <div class="modal_bg"></div>
+        </div>
+      </div>
+      <!-- E sub_container -->
+      {% include 'active_start.html' %}
+    </div>
+</body>
+
+</html>

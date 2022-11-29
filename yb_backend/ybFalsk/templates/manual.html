@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="../static/css/common.css" type="text/css" />
+    <link rel="stylesheet" href="../static/css/sub.css" type="text/css" />
+    <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="../static/js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="../static/js/common.js"></script>
+</head>
+<script>
+    $(document).ready(function () { });
+</script>
+
+<body>
+    <div id="wrap">
+        <!--S header -->
+        <header class="header">
+            <button class="btn_back">뒤로가기</button>
+            <h2>메뉴얼</h2>
+            <a href="/main" class="btn_home"><img src="../static/img/common/btn_home2.jpg" alt="홈" /></a>
+        </header>
+        <!--E header -->
+        <!-- S sub_container -->
+        <div class="sub_container">
+            <div class="cs">
+                <div class="faq manual">
+                    <div class="top">
+                        <!-- <form class="search">
+                            <fieldset>
+                                <input type="text" placeholder="검색" />
+                                <button>검색</button>
+                            </fieldset>
+                        </form> -->
+                        <div class="sort">
+                            <div class="scroll">
+                                <!-- S tab_button -->
+                                <div class="tab_button clearfix">
+                                    <button class="btn on">전체</button>
+                                    <button class="btn">거래방법</button>
+                                    <button class="btn">이용권</button>
+                                    <button class="btn">환불/취소</button>
+                                </div>
+                                <!-- E tab_button -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- S tab_content -->
+                    <div class="tab_content">
+                        <!-- 전체 -->
+                        <div class="item on">
+                            <ul class="list">
+                                <!-- API 발급방법 -->
+                                <li>
+                                    <p class="title">API 발급방법</p>
+                                    <div class="content">
+                                        <ul class="ul01">
+                                            <li>
+                                                <img src="../static/img/sub/manual_img1.png" />
+                                                <em class="num">1</em>
+                                                <p class="">Open API 등록</p>
+                                                <ul class="ul02">
+                                                    <li>
+                                                        <em class="num">1</em>
+                                                        <p><a href="https://upbit.com/home"
+                                                                target="_blank">https://upbit.com/home</a>
+                                                            업비트 홉페이지 접속</p>
+                                                    </li>
+                                                    <li>
+                                                        <em class="num">2</em>
+                                                        <p>로그인-카카오 계정 로그인</p>
+                                                    </li>
+                                                    <li>
+                                                        <img src="../static/img/sub/manual_img2.png" />
+                                                        <em class="num">3</em>
+                                                        <p>고객센터-Open API 안내-Open API 사용하기</p>
+                                                    </li>
+                                                    <li>
+                                                        <img src="../static/img/sub/manual_img3.png" />
+                                                        <em class="num">4</em>
+                                                        <p>자산조회/주문조회/주문하기/특정 IP에서만 실행</p>
+                                                        <button type="button" class="btn_copy"
+                                                            onClick="copyToClipboard()">
+                                                            YBBot 고정 IP 복사하기
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <em class="num">5</em>
+                                                        <p>내 IP 주소 확인-IP 주소 입력-Open API 발급받기</p>
+                                                    </li>
+                                                    <li>
+                                                        <img src="../static/img/sub/manual_img4.png" />
+                                                        <em class="num">6</em>
+                                                        <p>카카오페이 인증하기</p>
+                                                    </li>
+                                                    <li>
+                                                        <img src="../static/img/sub/manual_img5.png" />
+                                                        <em class="num">7</em>
+                                                        <p>Open API Key 발급완료 *주의사항</p>
+                                                    </li>
+                                                    <li>
+                                                        <p style="margin-left: 33px;">※ 주의사항 : 발급된 Access key와 Secret
+                                                            key는 최초 1회를 제외하고, 추가적인 확인이
+                                                            어렵습니다.<br />안전한 곳에 별도의 저장을 통해 보관하여야 합니다.</p>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <img src="../static/img/sub/manual_img6.png" />
+                                                <em class="num">2</em>
+                                                <p>App 마이페이지 등록</p>
+                                                <ul class="ul02">
+                                                    <li>
+                                                        <em class="num">1</em>
+                                                        <p>YBBOT 어플 접속 후 로그인</p>
+                                                    </li>
+                                                    <li>
+                                                        <em class="num">2</em>
+                                                        <p>마이페이지-API Key 등록</p>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <!-- 자동매매 거래방법 -->
+                                <li>
+                                    <p class="title">자동매매 거래방법</p>
+                                    <div class="content">
+                                        <p style="font-size: 1.5rem; color: #dab169; text-align: center;">YBBOT App
+                                            자동매매는<br />최소 시드머니 200만원 이상부터 자동매매가
+                                            가능합니다.</p>
+                                        <ul class="ul01">
+                                            <li>
+                                                <div class="img_box">
+                                                    <img src="../static/img/sub/manual_img7.png" />
+                                                </div>
+                                                <em class="num">1</em>
+                                                <p class="">자동매매 START</p>
+                                                <ul class="ul02">
+                                                    <li>
+                                                        <em class="num">1</em>
+                                                        <p>특징을 참조하여 원하시는 타입을 선택해 주세요.<br />
+                                                            공격형 Attack-Ⅰ / Attack-Ⅱ<br />
+                                                            수비형 Shield-Ⅰ / Shield-Ⅱ<br />
+                                                            - Attrack-I : 급등하는 코인을 초단위로 시그널을 감지하여, 단기적으로 빨리 상승할 수 있는 코인을
+                                                            매매하는 방식<br />
+                                                            - Attrack-II : 급등하는 코인을 초단위로 시그널을 감지하여, 단기적으로 빨리 상승할 수 있는
+                                                            코인을
+                                                            매매하는 방식<br />
+                                                            - Shield-I : 하락이 끝나는 시점에서 각종 보조지표와 과거 AI 빅 데이터를 분석하여, 상승시점을
+                                                            포착
+                                                            후 매매를 합니다.<br />
+                                                            - Shield-I : 하락이 끝나는 시점에서 각종 보조지표와 과거 AI 빅 데이터를 분석하여, 상승시점을
+                                                            포착
+                                                            후 매매를 합니다.
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <div class="img_box">
+                                                            <img src="../static/img/sub/manual_img8.png" />
+                                                        </div>
+                                                        <em class="num">2</em>
+                                                        <p>YB BOT이 타입에 맞는 코인을 탐색하고 있습니다.</p>
+                                                    </li>
+                                                    <li>
+                                                        <div class="img_box">
+                                                            <img src="../static/img/sub/manual_img9.png" />
+                                                        </div>
+                                                        <em class="num">3</em>
+                                                        <p>탐색 후 비트코인이 주문되었습니다.</p>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <div class="img_box">
+                                                    <img src="../static/img/sub/manual_img10.png" />
+                                                </div>
+                                                <em class="num">2</em>
+                                                <p class="">거래내역</p>
+                                                <ul class="ul02">
+                                                    <li>
+                                                        <em class="num">1</em>
+                                                        <p>홈-거래내역에서 주문/완료/합계 내역을 확인할 수 있습니다.</p>
+                                                    </li>
+                                                    <li>
+                                                        <div class="img_box">
+                                                            <img src="../static/img/sub/manual_img11.png" />
+                                                        </div>
+                                                        <em class="num">2</em>
+                                                        <p>코인선택시 주문하신 타입과 주문금액, 현재수익금과 수익률을 쉽게 확인할 수 있습니다.</p>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 거래방법 -->
+                        <div class="item">
+                            <ul class="list">
+                                <!-- API 발급방법 -->
+                                <li>
+                                    <p class="title">API 발급방법</p>
+                                    <div class="content">
+                                        <ul class="ul01">
+                                            <li>
+                                                <img src="../static/img/sub/manual_img1.png" />
+                                                <em class="num">1</em>
+                                                <p class="">Open API 등록</p>
+                                                <ul class="ul02">
+                                                    <li>
+                                                        <em class="num">1</em>
+                                                        <p>https://upbit.com/home 업비트 홉페이지 접속</p>
+                                                    </li>
+                                                    <li>
+                                                        <em class="num">2</em>
+                                                        <p>로그인-카카오 계정 로그인</p>
+                                                    </li>
+                                                    <li>
+                                                        <img src="../static/img/sub/manual_img2.png" />
+                                                        <em class="num">3</em>
+                                                        <p>고객센터-Open API 안내-Open API 사용하기</p>
+                                                    </li>
+                                                    <li>
+                                                        <img src="../static/img/sub/manual_img3.png" />
+                                                        <em class="num">4</em>
+                                                        <p>자산조회/주문조회/주문하기/특정 IP에서만 실행</p>
+                                                    </li>
+                                                    <li>
+                                                        <em class="num">5</em>
+                                                        <p>내 IP 주소 확인-IP 주소 입력-Open API 발급받기</p>
+                                                    </li>
+                                                    <li>
+                                                        <img src="../static/img/sub/manual_img4.png" />
+                                                        <em class="num">6</em>
+                                                        <p>카카오페이 인증하기</p>
+                                                    </li>
+                                                    <li>
+                                                        <img src="../static/img/sub/manual_img5.png" />
+                                                        <em class="num">7</em>
+                                                        <p>Open API Key 발급완료 *주의사항</p>
+                                                    </li>
+                                                    <li>
+                                                        <p style="margin-left: 33px;">※ 주의사항 : 발급된 Access key와 Secret
+                                                            key는 최초 1회를 제외하고, 추가적인 확인이
+                                                            어렵습니다.<br />안전한 곳에 별도의 저장을 통해 보관하여야 합니다.</p>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <em class="num">2</em>
+                                                <p>App 마이페이지 등록</p>
+                                                <img src="../static/img/sub/manual_img6.png" />
+                                                <ul class="ul02">
+                                                    <li>
+                                                        <em class="num">1</em>
+                                                        <p>YBBOT 어플 접속 후 로그인</p>
+                                                    </li>
+                                                    <li>
+                                                        <em class="num">2</em>
+                                                        <p>마이페이지-API Key 등록</p>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <!-- 자동매매 거래방법 -->
+                                <li>
+                                    <p class="title">자동매매 거래방법</p>
+                                    <div class="content">
+                                        <ul class="ul01">
+                                            <li>
+                                                <div class="img_box">
+                                                    <img src="../static/img/sub/manual_img7.png" />
+                                                </div>
+                                                <em class="num">1</em>
+                                                <p class="">자동매매 START</p>
+                                                <ul class="ul02">
+                                                    <li>
+                                                        <em class="num">1</em>
+                                                        <p>특징을 팜조하여 원하시는 타입을 선택해 주세요.<br />
+                                                            공격형 Attack-Ⅰ / Attack-Ⅱ<br />
+                                                            수비형 Shield-Ⅰ / Shield-Ⅱ
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <div class="img_box">
+                                                            <img src="../static/img/sub/manual_img7.png" />
+                                                        </div>
+                                                        <em class="num">2</em>
+                                                        <p>YB BOT이 타입에 맞는 코인을 탐색하고 있습니다.</p>
+                                                    </li>
+                                                    <li>
+                                                        <div class="img_box">
+                                                            <img src="../static/img/sub/manual_img9.png" />
+                                                        </div>
+                                                        <em class="num">3</em>
+                                                        <p>탐색 후 비트코인이 주문되었습니다.</p>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <div class="img_box">
+                                                    <img src="../static/img/sub/manual_img10.png" />
+                                                </div>
+                                                <em class="num">2</em>
+                                                <p class="">거래내역</p>
+                                                <ul class="ul02">
+                                                    <li>
+                                                        <em class="num">1</em>
+                                                        <p>홈-거래내역에서 주문/완료/합계 내역을 확인할 수 있습니다.</p>
+                                                    </li>
+                                                    <li>
+                                                        <div class="img_box">
+                                                            <img src="../static/img/sub/manual_img11.png" />
+                                                        </div>
+                                                        <em class="num">2</em>
+                                                        <p>코인선택시 주문하신 타입과 주문금액, 현재수익금과 수익률을 쉽게 확인할 수 있습니다.</p>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 이용권 -->
+                        <div class="item">
+                            <div class="list_none">
+                                <img src="../static/img/sub/list_none.jpg" />
+                                <p>이용권 관련 내용이 없습니다.</p>
+                            </div>
+                        </div>
+                        <!-- 환불/취소 -->
+                        <div class="item">
+                            <div class="list_none">
+                                <img src="../static/img/sub/list_none.jpg" />
+                                <p>환불/취소 관련 내용이 없습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- E tab_content -->
+                </div>
+            </div>
+        </div>
+        <!-- E sub_container -->
+    </div>
+</body>
+
+</html>

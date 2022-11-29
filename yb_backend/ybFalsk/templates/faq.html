@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../static/css/reset.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/sub.css" type="text/css" />
+  <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="../static/js/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="../static/js/common.js"></script>
+</head>
+<script>
+  $(document).ready(function () { });
+</script>
+
+<body>
+  <div id="wrap">
+    <!--S header -->
+    <header class="header">
+      <button class="btn_back">뒤로가기</button>
+      <h2>고객센터</h2>
+      <a href="/main" class="btn_home"><img src="../static/img/common/btn_home2.jpg" alt="홈" /></a>
+    </header>
+    <!--E header -->
+    <!-- S sub_container -->
+    <div class="sub_container">
+      <div class="cs">
+        <div class="tab_button clearfix">
+          <a href="/notice_list" class="btn">공지사항</a>
+          <a href="" class="btn on">자주묻는질문</a>
+        </div>
+        <div class="faq">
+          <!-- S tab_content -->
+          <div class="tab_content">
+            <!-- 전체 -->
+            <div class="item on">
+              <ul class="list">
+                {% for i in qna_list %}
+                <li>
+                  <p class="title">{{i['title']}}</p>
+                  <div class="content">
+                    {{i['description']}}
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- E tab_content -->
+      </div>
+    </div>
+  </div>
+  <!-- E sub_container -->
+  </div>
+</body>
+
+</html>

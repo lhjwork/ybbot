@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="refresh" content="5; url=main" />
+  <link rel="stylesheet" href="../static/css/reset.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/sub.css" type="text/css" />
+  <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon" />
+  <script type="text/javascript" src="../static/js/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="../static/js/common.js"></script>
+</head>
+<script>
+  $(document).ready(function () {
+    setTimeout(function () {
+      $(".modal.alarm").css("display", "block")
+    }, 2000);
+
+  });
+</script>
+
+<body>
+  <div id="wrap">
+    <!--S header -->
+    <header class="header">
+      <button class="btn_back">뒤로가기</button>
+      <h1 class="logo">
+        <img src="../static/img/common/logo.jpg" alt="YB BOT 로고" />
+      </h1>
+    </header>
+    <!--E header -->
+    <!-- S main_container -->
+    <div class="sub_container">
+      <img src="../static/img/sub/loading.gif" style="
+            display: block;
+            width: 100%;
+            max-width: 500px;
+            margin: -100px auto 0;
+          " />
+    </div>
+    <!-- E main_container -->
+    <div class="modal alarm">
+      <button type="button" class="btn_close">닫기</button>
+      <strong class="title">알람</strong>
+      {% if alarm_info['active'] == false :%}
+      <p class="txt">자동매매를 시작하시려면 start를 해주세요.</p>
+      {% elif alarm_info['type'] == 'attack0':%}
+      <p class="txt">자동매매가 시작되었습니다.</p>
+      {% else: %}
+      <p class="txt">자동매매({{alarm_info['type']}})가 시작되었습니다.</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+
+</html>

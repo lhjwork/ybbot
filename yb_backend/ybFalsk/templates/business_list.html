@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../static/css/reset.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/sub.css" type="text/css" />
+  <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="../static/js/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="../static/js/common.js"></script>
+</head>
+<script>
+  let completions = {{ completions | tojson | safe }}
+  let orders = {{ orders | tojson | safe }}
+  let completions_length = completions.length;
+  let orders_length = orders.length;
+
+  $(document).ready(function () {
+    console.log(orders)
+    $('.btn_sort').each(function () {
+      $(this).on('click', function () {
+        $(this).toggleClass('on');
+      });
+    });
+    sortingCompletionsTemplates();
+    sortingOrdersTemplates();
+  });
+
+  function sortingOrders(sortby, sort) {
+    if (sortby == 6) {
+      if ($(sort).hasClass("on")) {
+        result = orders.sort(function (a, b) {
+          return new Date($(Object.values(a))[sortby]) - new Date($(Object.values(b))[sortby]);
+        })
+      }
+      else {
+        result = orders.sort(function (a, b) {
+          return new Date($(Object.values(b))[sortby]) - new Date($(Object.values(a))[sortby]);
+        })
+      }
+    }
+    else {
+      if ($(sort).hasClass("on")) {
+        result = orders.sort(function (a, b) {
+          return $(Object.values(a))[sortby] - $(Object.values(b))[sortby];
+        })
+      }
+      else {
+        result = orders.sort(function (a, b) {
+          return $(Object.values(b))[sortby] - $(Object.values(a))[sortby];
+        })
+      }
+    }
+    sortingOrdersTemplates();
+  }
+  function sortingOrdersTemplates() {
+    let order_list = "";
+    for (let i = 0; i < orders_length; i++) {
+      if ($(Object.values(orders[i]))[4] < 0) {
+        order_list += "<li class='clearfix'><span class='title'>" + $(Object.values(orders[i]))[3] + "</span><span class='price'>₩ " + $(Object.values(orders[i]))[1] + "</span><span class='profit down'>" + $(Object.values(orders[i]))[4].toFixed(2) + "%</span></br><span class='coin_name'>" + $(Object.values(orders[i]))[0] + "</span><span class='date'>" + $(Object.values(orders[i]))[6] + "</li>"
+      }
+      else {
+        order_list += "<li class='clearfix'><span class='title'>" + $(Object.values(orders[i]))[3] + "</span><span class='price'>₩ " + $(Object.values(orders[i]))[1] + "</span><span class='profit up'>" + "+" + $(Object.values(orders[i]))[4].toFixed(2) + "%</span></br><span class='coin_name'>" + $(Object.values(orders[i]))[0] + "</span><span class='date'>" + $(Object.values(orders[i]))[6] + "</li>"
+      }
+    }
+    $(".orders_list").html(order_list)
+  }
+
+  function sortingCompletions(sortby, sort) {
+    if ($(sort).hasClass("on")) {
+      result = completions.sort(function (a, b) {
+        return $(Object.values(a))[sortby] - $(Object.values(b))[sortby];
+      })
+    }
+    else {
+      result = completions.sort(function (a, b) {
+        return $(Object.values(b))[sortby] - $(Object.values(a))[sortby];
+      })
+    }
+    sortingCompletionsTemplates();
+    console.log(result)
+  }
+  function sortingCompletionsTemplates() {
+    let complete_list = "";
+    for (let i = 0; i < completions_length; i++) {
+      if ($(Object.values(completions[i]))[3] < 0) {
+        complete_list += "<li class='clearfix'><span class='title'>" + $(Object.values(completions[i]))[2] + "</span><span class='price'>₩ " + $(Object.values(completions[i]))[0].toFixed(1) + "</span><span class='profit down'>" + $(Object.values(completions[i]))[3].toFixed(2) + "%</span></br><span class='price2'>" + $(Object.values(completions[i]))[5].toFixed(2) + "</span><span class='date'>" + $(Object.values(completions[i]))[4] + "</span></li>"
+      }
+      else {
+        complete_list += "<li class='clearfix'><span class='title'>" + $(Object.values(completions[i]))[2] + "</span><span class='price'>₩ " + $(Object.values(completions[i]))[0].toFixed(1) + "</span><span class='profit up'>" + "+" + $(Object.values(completions[i]))[3].toFixed(2) + "%</span></br><span class='price2'>" + $(Object.values(completions[i]))[5].toFixed(2) + "</span><span class='date'>" + $(Object.values(completions[i]))[4] + "</span></li>"
+      }
+    }
+    $(".complete_list").html(complete_list)
+  }
+
+  // function sorting(sortby, sort, sort_list, list_inner) {
+  //   if (sort_list == "") {
+  //     return null;
+  //   }
+  //   if (sort_list == orders) {
+  //     var list_length = orders_length;
+  //   }
+  //   else {
+  //     var list_length = completions_length;
+  //   }
+  //   if ($(sort).hasClass("on")) {
+  //     result = sort_list.sort(function (a, b) {
+  //       return $(Object.values(a))[sortby] - $(Object.values(b))[sortby];
+  //     })
+  //   }
+  //   else {
+  //     result = sort_list.sort(function (a, b) {
+  //       return $(Object.values(b))[sortby] - $(Object.values(a))[sortby];
+  //     })
+  //   }
+  //   listSet(result, list_length, list_inner);
+  // }
+  // function listSet(list, list_length, list_inner) {
+  //   for (let i = 0; i < list_length; i++) {
+  //     console.log(list_length)
+  //     var complete_list;
+  //     if ($(Object.values(list[i]))[3] < 0) {
+  //       complete_list += "<li class='clearfix'><span class='title'>" + $(Object.values(list[i]))[0] + "</span><span class='price'>₩ " + $(Object.values(list[i]))[1] + "</span><span class='profit down'>" + Math.round($(Object.values(list[i]))[3] * 100) / 100 + "%</span></br><span class='price2'>" + $(Object.values(list[i]))[2] + "</span></li>"
+  //     }
+  //     else {
+
+  //       complete_list += "<li class='clearfix'><span class='title'>" + $(Object.values(list[i]))[0] + "</span><span class='price'>₩ " + $(Object.values(list[i]))[1] + "</span><span class='profit up'>+" + Math.round($(Object.values(list[i]))[3] * 100) / 100 + "%</span></br><span class='price2'>" + $(Object.values(list[i]))[2] + "</span></li>"
+  //     }
+  //   }
+  //   $(list_inner).html(complete_list)
+  // }
+
+
+</script>
+
+<body>
+  <!-- S wrap -->
+  <div id="wrap">
+    <!--S header -->
+    <header class="header">
+      <button class="btn_back">뒤로가기</button>
+      <h2>거래내역</h2>
+    </header>
+    <!--E header -->
+    <!-- S sub_container -->
+    <div class="sub_container">
+      <div class="business_list">
+        <!-- S tab_button -->
+        <div class="tab_button clearfix">
+          <button class="btn on">주문</button>
+          <button class="btn">완료</button>
+        </div>
+        <!-- E tab_button -->
+        <!-- S tab_content -->
+        <div class="tab_content">
+          <!-- 주문 -->
+          <div class="item list on">
+            <!-- S sort -->
+            <div class="sort clearfix">
+              <div class="title">
+                <span>코인명</span>
+              </div>
+              <div class="sort1">
+                <button class="btn_sort btn_sort1" onclick="sortingOrders(1, this)">
+                  <span>주문금액</span>
+                  <em>정렬</em>
+                </button>
+                <button class="btn_sort bnt_sort2" onclick="sortingOrders(6, this)">
+                  <span>기간순</span>
+                  <em>정렬</em>
+                </button>
+              </div>
+              <div class="sort2">
+                <button class="btn_sort bnt_sort3" onclick="sortingOrders(4, this)">
+                  <span>수익률</span>
+                  <em>정렬</em>
+                </button>
+              </div>
+            </div>
+
+            <!-- E sort -->
+            {% if orders|length == 0: %}
+            <!-- 주문내역 없을 때 -->
+            <div class="list_none">
+              <img src="../static/img/sub/list_none.jpg" />
+              {% if error_statement: %}
+              <p>{{error_statement}}</p>
+              {% else %}
+              <p>주문내역이 없습니다.</p>
+              {% endif %}
+            </div>
+
+            {% else: %}
+            <ul class="sort_list orders_list">
+              {% for order in orders | sort(attribute='bid_price') %}
+              <li class="clearfix">
+                <span class="title">{{order['market']}}</span>
+                <span class="price">₩ {{order['bid_price']|int}}</span>
+                {% if order['profit_rate'] < 0: %} <span class="profit down">{{order['profit_rate']|round(2)}}%</span>
+                  {% else: %}
+                  <span class="profit up">+{{order['profit_rate']|round(2)}}%</span>
+                  {% endif %}
+                  <br />
+                  <span class="coin_name">
+                    {% if order['auto_set'] == none or order['auto_set'] == null %}
+                    null
+                    {% else %}
+                    {{order['auto_set']}}
+                    {% endif %}
+                  </span>
+                  <span class="date">{{order['work_time']}}</span>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+
+          <!-- 완료 -->
+          <div class="item list">
+            <div class="sort clearfix">
+              <div class="title">
+                <span>코인명</span>
+                <span>거래대금</span>
+              </div>
+              <div class="sort1">
+                <button class="btn_sort btn_sort1" onclick="sortingCompletions(0, this)">
+                  <span>수익금</span>
+                  <em>정렬</em>
+                </button>
+                <!-- <button class=" btn_sort btn_sort1">
+                  <span>종료시각</span>
+                  <em>정렬</em>
+                </button> -->
+              </div>
+              <div class="sort2">
+                <button class="btn_sort btn_sort1" onclick="sortingCompletions(3, this)">
+                  <span>수익률</span>
+                  <em>정렬</em>
+                </button>
+              </div>
+            </div>
+
+            {% if completions|length == 0: %}
+            <!-- 완료내역이 없을 때 -->
+            <div class="list_none">
+              <img src="../static/img/sub/list_none.jpg" />
+              {% if error_statement: %}
+              <p>{{error_statement}}</p>
+              {% else %}
+              <p>완료내역이 없습니다.</p>
+              {% endif %}
+            </div>
+            {% else: %}
+            <ul class="sort_list complete_list">
+              {% for completion in completions %}
+              <li class="clearfix">
+                <span class="title">{{completion['market']}}</span>
+                <span class="price">₩ {{completion['all_buy']|round(1)}}</span>
+                {% if completion['profit_rate'] < 0: %} <span class="profit down">
+                  {{completion['profit_rate']|round(2)}}%</span>
+                  {% else: %}
+                  <span class="profit up">+ {{completion['profit_rate']|round(2)}}%</span>
+                  {% endif %}
+                  <br />
+                  <span class="price2">{{completion['volume']|round(2)}}</span>
+                  <span class="date">{{completion['trade_time']}}</span>
+              </li>
+              {% endfor %} -->
+              <!-- <li class="clearfix">
+                  <span class="title">코인명</span>
+                  <span class="price">₩ 00,000</span>
+                  <span class="profit down">-000.00%</span>
+                  <br />
+                  <span class="price2">000,000,000</span>
+                  <span class="date">22.00.00 00:00:00</span>
+                </li>-->
+            </ul>
+            {% endif %}
+          </div>
+        </div>
+        <!-- E tab_content -->
+      </div>
+    </div>
+    <!-- S sub_container -->
+  </div>
+  <!-- E wrap -->
+</body>
+
+</html>

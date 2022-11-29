@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../static/css/reset.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/common.css" type="text/css" />
+  <link rel="stylesheet" href="../static/css/sub.css" type="text/css" />
+  <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
+  <script type="text/javascript" src="../static/js/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="../static/js/common.js"></script>
+</head>
+<!-- {% block scripts %}
+<script type="text/javascript">
+  window.ReactNativeWebView = {
+    window.ReactNativeWebView.postMessage(
+          JSON.stringify( {data:"hello"} )
+        );
+  }else{}
+</script>
+{% endblock %} -->
+
+
+<body>
+  <div id="wrap">
+    <!--S header -->
+    <header class="header">
+      <button class="btn_back">뒤로가기</button>
+      <h1 class="logo">
+        <img src="../static/img/common/logo.jpg" alt="YB BOT 로고" />
+      </h1>
+      <a class="btn_home" href="/main"><img src="../static/img/common/btn_home2.jpg" alt="홈" /></a>
+    </header>
+    <!--E header -->
+    <!-- S main_container -->
+    <div class="sub_container">
+      <div class="login layout">
+        <form action="/login" enctype="application/x-www-form-urlencoded" method="POST">
+          <img src="../static/img/sub/login_bg.jpg" class="bg" />
+          <fieldset>
+            <p class="input">
+              <label for="email">이메일</label>
+              <br />
+              <input type="text" id="email" name="email" />
+            </p>
+            <input type="password" placeholder="비밀번호" name="pwd" id="pwd" />
+            {% if error_statement : %}
+            <p class="error" style="color: red; margin-top: 20px;">{{error_statement}}</p>
+            {% endif %}
+            <div class="link clearfix">
+              <p class="chk01">
+                <input type="checkbox" id="save_email" />
+                <label for="save_email">이메일 저장</label>
+              </p>
+              <button type="button" class="btn_pwd" onClick="modal('pwd')">비밀번호 재설정</button>
+
+            </div>
+            <div class="btn_wrap">
+              <button type="submit" class="btn1">로그인</button>
+              <a href="/join" class="btn1">회원가입</a>
+            </div>
+          </fieldset>
+        </form>
+        {% if res == "success_authNum" or res == "success_authCheck" or err_modal != none %}
+        <div class="modal pwd" style="display: block">
+          {% else %}
+          <div class="modal pwd">
+            {% endif %}
+            <button class="btn_close">닫기</button>
+            <strong class="title">비밀번호 재설정</strong>
+            <p class="txt1">가입되어 있는 이메일 주소를 입력해 주세요.</p>
+            {% if res == 'success_authNum' %}
+            <form action="/repass_auth_num_check" enctype="application/x-www-form-urlencoded" method="POST">
+              {% elif res == 'success_authCheck' %}
+              <form action="/repassword" enctype="application/x-www-form-urlencoded" method="POST">
+                {% else %}
+                <form action="/send_auth_repassnum" enctype="application/x-www-form-urlencoded" method="POST">
+                  {% endif %}
+                  <p class="input">
+                    <input type="text" id="userEmail" name="userEmail" value="{{email}}"
+                      placeholder="이메일 주소를 입력해주세요." />
+                    {% if res == "success_authNum" or res == "success_authCheck" %}
+                    <span class="btn_certify">인증번호 전송완료</span>
+                    {% else %}
+                    <button type="submit" class="btn_certify">인증번호 전송</button>
+                    {% endif %}
+                  </p>
+                  <p class="input">
+                    <input type="text" id="authNum" name="authNum" value="{{authNum}}" placeholder="인증번호를 입력해주세요." />
+                    {% if res == "success_authCheck" %}
+                    <span class="btn_certify">인증번호 확인완료</span>
+                    {% else %}
+                    <button type="submit" class="btn_certify">인증번호 확인</button>
+                    {% endif %}
+                  </p>
+                  {% if err_modal : %}
+                  <p class="error" style="color: red; margin-top: 20px;">{{err_modal}}</p>
+                  {% endif %}
+                  <p class="txt2">
+                    전송된 메일로 인증을 완료하면 임시 비밀번호가 발급됩니다.<br />인증
+                    메일은 발송 후 24시간 내에만 유효합니다.
+                  </p>
+                  <button type="submit" class="btn1 arrow pwd_reset">비밀번호 재설정</button>
+                </form>
+          </div>
+          <div class="modal_bg"></div>
+        </div>
+      </div>
+      <!-- E main_container -->
+    </div>
+</body>
+
+</html>

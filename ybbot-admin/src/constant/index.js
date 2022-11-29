@@ -1,0 +1,1 @@
+export const CoinName = 'KSP';

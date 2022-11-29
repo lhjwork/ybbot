@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="../static/css/common.css" type="text/css" />
+    <link rel="stylesheet" href="../static/css/sub.css" type="text/css" />
+    <link rel="shortcut icon" href="../static/img/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="../static/js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="../static/js/common.js"></script>
+</head>
+<script>
+    $(document).ready(function () {
+        $(".btn1").on("click", function () {
+            if (!$('#username').val() || !$('#email').val() || !$('#phone').val() || !$('#title').val() || !$('#questions').val()) {
+                alert("입력란을 마저 작성해주세요.")
+            }
+            else { alert("문의가 정상적으로 등록되었습니다.") }
+
+        })
+    });
+</script>
+
+<body>
+    <div id="wrap">
+        <!--S sub_header -->
+        <header class="header">
+            <button class="btn_back">뒤로가기</button>
+            <h2>1:1 문의</h2>
+            <a href="/main" class="btn_home"><img src="../static/img/common/btn_home2.jpg" alt="홈" /></a>
+        </header>
+        <!--E header -->
+        <!-- S sub_container -->
+        <div class="sub_container">
+            <div class="cs">
+                <div class="contact_us">
+                    <form action="/one_to_one" enctype="application/x-www-form-urlencoded" method="POST">
+                        <fieldset>
+                            <p class="input">
+                                <label for="username">이름</label>
+                                <input type="text" id="username" name="username" required />
+                            </p>
+                            <p class="input">
+                                <label for="email">이메일</label>
+                                <input type="text" id="email" name="email" required />
+                            </p>
+                            <p class="input">
+                                <label for="phone">연락처</label>
+                                <input type="text" id="phone" name="phone" required />
+                            </p>
+                            <p class="input">
+                                <label for="title">제목</label>
+                                <input type="text" id="title" name="title" required />
+                            </p>
+                            <p class="input">
+                                <label for="questions">문의사항</label>
+                                <textarea id="questions" name="questions" required></textarea>
+                            </p>
+                        </fieldset>
+                        <button type="submit" class="btn1 arrow">문의하기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- E sub_container -->
+    </div>
+</body>
+
+</html>
