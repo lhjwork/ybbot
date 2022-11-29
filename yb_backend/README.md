@@ -1,6 +1,6 @@
 # yb_backend
 
 
-Backend : flask 
-DB : postgresql 
+Backend : flask \n
+DB : postgresql \n
 admin : react
